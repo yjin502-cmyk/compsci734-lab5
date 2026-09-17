@@ -1,0 +1,9 @@
+{
+  "VsCodeTaskButtons.showCounter": false,
+  "VsCodeTaskButtons.tasks": [
+    { "label": "$(browser) Dashboard", "task": "🌐 Run the dashboard", "tooltip": "Start Vite on port 5734" },
+    { "label": "$(server) Kai server", "task": "🍲 Run the Kai server", "tooltip": "Start the bundled Kai Events server on port 3734" },
+    { "label": "$(beaker) Test", "task": "🧪 Run the tests", "tooltip": "Run the test suite once" },
+    { "label": "$(check) Typecheck", "task": "✅ Typecheck", "tooltip": "tsc --noEmit" }
+  ]
+}

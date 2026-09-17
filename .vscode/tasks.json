@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🌐 Run the dashboard",
+      "type": "shell",
+      "command": "npm run dev",
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated", "focus": false },
+      "problemMatcher": []
+    },
+    {
+      "label": "🍲 Run the Kai server",
+      "type": "shell",
+      "command": "npm run kai-server",
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated", "focus": false },
+      "problemMatcher": []
+    },
+    {
+      "label": "🧪 Run the tests",
+      "type": "shell",
+      "command": "npm test",
+      "presentation": { "reveal": "always", "panel": "shared", "focus": false, "clear": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "✅ Typecheck",
+      "type": "shell",
+      "command": "npm run typecheck",
+      "presentation": { "reveal": "always", "panel": "shared", "focus": false, "clear": true },
+      "problemMatcher": []
+    }
+  ]
+}

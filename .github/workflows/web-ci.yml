@@ -1,0 +1,48 @@
+# Runs the same checks a person would run locally, on a clean machine, on
+# every push to main and every pull request.
+name: web-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# A new run on the same branch cancels the one still in progress, so five
+# pushes in a minute produce one run rather than five.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# The automatic token can write to the repository by default. This job only
+# needs to read it.
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          # Caches the npm download directory between runs, keyed on the
+          # lockfile so a dependency change gets a fresh install.
+          cache: npm
+
+      # npm ci, not npm install: it fails if package.json and the lockfile
+      # disagree, and installs from an empty node_modules.
+      - run: npm ci
+
+      # Cheapest first, so a type error does not wait behind the test suite.
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+      # The runner is destroyed when the job ends, so keep the build output.
+      - uses: actions/upload-artifact@v5
+        with:
+          name: web-dist
+          path: dist
+          retention-days: 7
